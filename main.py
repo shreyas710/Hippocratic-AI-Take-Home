@@ -8,6 +8,7 @@ from typing import Optional
 from categorizer import categorize_request
 from generator import generate_story
 from judger import judge_story
+from refiner import refine_story
 
 """
 Before submitting the assignment, describe here in a few sentences what you would have built next if you spent 2 more hours on this project:
@@ -117,5 +118,31 @@ def main():
 
     display_story_with_formatting(story)
 
+    print("\n" + "-"*50)
+    print("Story Evaluation:")
+    print("-"*50 + "\n")
+    
+    scores = evaluation.get("scores", {})
+    for criterion, score in scores.items():
+        criterion_display = criterion.replace("_", " ").title()
+        print(f"   {criterion_display}: {score}/10")
+
+    print("\n" + "-"*60)
+    print("Would you like me to modify the story?")
+    print("(e.g., 'make it funnier', 'add more adventure', 'change the ending')")
+    print("(Press Enter to keep the story as is)\n")
+    
+    user_feedback = input("Your feedback (or Enter to finish): ").strip()
+    
+    while user_feedback:
+        loader = LoadingAnimation("Refining")
+        loader.start()
+        story = refine_story(story, user_input, user_feedback)
+        loader.stop()
+        display_story_with_formatting(story)
+        
+        print("Any other changes? (Press Enter to finish)\n")
+        user_feedback = input("Your feedback: ").strip()
+    
 if __name__ == "__main__":
     main()
