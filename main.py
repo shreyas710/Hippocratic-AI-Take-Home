@@ -12,7 +12,8 @@ from refiner import refine_story
 
 """
 Before submitting the assignment, describe here in a few sentences what you would have built next if you spent 2 more hours on this project:
-
+- Allow children to make choices during the story that affect the narrative.
+- Implement a feature to read the story aloud using text-to-speech. (Using ElevenLabs TTS or similar APIs)
 """
 
 def call_model(prompt: str, system_prompt: Optional[str] = None, max_tokens=3000, temperature=0.1) -> str:
